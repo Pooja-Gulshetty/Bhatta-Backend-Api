@@ -23,4 +23,36 @@
 hs_err_pid*
 .idea
 .idea/*
+*.lst
+
+**/target
+
+commit.template
+
+**/*.iml
+**/.idea
+**/.settings
+
+**/.project
+**/.classpath
+**/bin
+
+**/target
+
+**/javadocs
+
+.project
+.classpath
+
+*.pmd
+*.MF
+.vagrant
+my-env-config.yml
+*guice.dot
+*.log
+
+**/checkstyle-report
+
+# Mac specific files
+**/*.DS_Store
 

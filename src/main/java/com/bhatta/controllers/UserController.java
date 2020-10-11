@@ -13,20 +13,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    @RequestMapping(
-            method = RequestMethod.POST,
-            path = "/bhatta/users",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<UserDto> createUser(@RequestBody final UserDto userDto) {
-        validateUser(userDto);
-        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+  @RequestMapping(
+      method = RequestMethod.POST,
+      path = "/bhatta/users",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<UserDto> createUser(@RequestBody final UserDto userDto) {
+    validateUser(userDto);
+    return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+  }
+
+  private void validateUser(UserDto userDto) {
+    if (userDto.getFirstName() == null || userDto.getFirstName().isEmpty()) {
+      throw new InvalidRequest("First name should not be null or empty");
     }
 
-    private void validateUser(UserDto userDto) {
-        if (userDto.getFirstName() == null || userDto.getFirstName().isEmpty()) {
-            throw new InvalidRequest("First name should not be null or empty");
-        }
+    if (userDto.getLastName() == null || userDto.getLastName().isEmpty()) {
+      throw new InvalidRequest("Last name should not be null or empty");
     }
+
+    if (userDto.getBillingAddress() == null || userDto.getBillingAddress().isEmpty()) {
+      throw new InvalidRequest("Billing address should not be null or empty");
+    }
+
+    if (userDto.getEmailAddress() == null || userDto.getEmailAddress().isEmpty()) {
+      throw new InvalidRequest("Email address should not be null or empty");
+    }
+
+    if (userDto.getPhoneNumber() == null || userDto.getPhoneNumber().isEmpty()) {
+      throw new InvalidRequest("Phone number should not be null or empty");
+    }
+  }
 }
