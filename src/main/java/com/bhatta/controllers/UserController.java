@@ -5,10 +5,7 @@ import com.bhatta.exceptions.InvalidRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -22,6 +19,17 @@ public class UserController {
   public ResponseEntity<UserDto> createUser(@RequestBody final UserDto userDto) {
     validateUser(userDto);
     return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+  }
+
+  @RequestMapping(
+          method = RequestMethod.PUT,
+          path = "/bhatta/users/{phoneNumber}",
+          consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<UserDto> updateUser(@RequestBody final UserDto userDto,
+                                            @PathVariable("phoneNumber") final String phoneNumber) {
+    return new ResponseEntity<>(userDto, HttpStatus.OK);
   }
 
   private void validateUser(UserDto userDto) {
